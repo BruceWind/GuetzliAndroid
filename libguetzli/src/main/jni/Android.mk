@@ -1,5 +1,3 @@
-
-
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
@@ -22,14 +20,41 @@ LOCAL_SRC_FILES := guetzli.cc           \
                    fdct.cc                    jpeg_data_writer.cc   score.cc \
                    fdct.h                    jpeg_data_writer.h   score.h \
                    gamma_correct.cc           jpeg_error.h          stats.h \
-			png\
+                     config.h    \
+                     png.c    \
+                     pngconf.h    \
+                     pngdebug.h    \
+                     pngerror.c    \
+                     pngget.c    \
+                     png.h    \
+                     pnginfo.h    \
+                     pnglibconf.h    \
+                     pngmem.c    \
+                     pngpread.c    \
+                     pngprefix.h    \
+                     pngpriv.h    \
+                     pngread.c    \
+                     pngrio.c    \
+                     pngrtran.c    \
+                     pngrutil.c    \
+                     pngset.c    \
+                     pngstruct.h    \
+                     pngtest.c    \
+                     pngtrans.c    \
+                     pngwio.c    \
+                     pngwrite.c    \
+                     pngwtran.c    \
+                    pngwutil.c
 
 
 
 
-LOCAL_STATIC_LIBRARIES := png
+# LOCAL_SHARED_LIBRARIES += -lz
 
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/png
+# LOCAL_STATIC_LIBRARIES := libpng
+
+
 
 LOCAL_LDLIBS    := -llog
 
