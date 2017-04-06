@@ -24,7 +24,7 @@
 #include "processor.h"
 #include "quality.h"
 #include "stats.h"
-#include "png/pngread.c"
+//#include "png/pngread.c"
 namespace {
 
 inline uint8_t BlendOnBlack(const uint8_t val, const uint8_t alpha) {

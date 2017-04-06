@@ -2,7 +2,7 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE    := Guetzli
+LOCAL_MODULE    := libguetzli
 LOCAL_SRC_FILES := guetzli.cc           \
                    gamma_correct.h       jpeg_huffman_decode.cc\
                    jpeg_huffman_decode.h \
@@ -20,31 +20,31 @@ LOCAL_SRC_FILES := guetzli.cc           \
                    fdct.cc                    jpeg_data_writer.cc   score.cc \
                    fdct.h                    jpeg_data_writer.h   score.h \
                    gamma_correct.cc           jpeg_error.h          stats.h \
-                     config.h    \
-                     png.c    \
-                     pngconf.h    \
-                     pngdebug.h    \
-                     pngerror.c    \
-                     pngget.c    \
-                     png.h    \
-                     pnginfo.h    \
-                     pnglibconf.h    \
-                     pngmem.c    \
-                     pngpread.c    \
-                     pngprefix.h    \
-                     pngpriv.h    \
-                     pngread.c    \
-                     pngrio.c    \
-                     pngrtran.c    \
-                     pngrutil.c    \
-                     pngset.c    \
-                     pngstruct.h    \
-                     pngtest.c    \
-                     pngtrans.c    \
-                     pngwio.c    \
-                     pngwrite.c    \
-                     pngwtran.c    \
-                    pngwutil.c
+                     png/config.h    \
+                     png/png.c    \
+                     png/pngconf.h    \
+                     png/pngdebug.h    \
+                     png/pngerror.c    \
+                     png/pngget.c    \
+                     png/png.h    \
+                     png/pnginfo.h    \
+                     png/pnglibconf.h    \
+                     png/pngmem.c    \
+                     png/pngpread.c    \
+                     png/pngprefix.h    \
+                     png/pngpriv.h    \
+                     png/pngread.c    \
+                     png/pngrio.c    \
+                     png/pngrtran.c    \
+                     png/pngrutil.c    \
+                     png/pngset.c    \
+                     png/pngstruct.h    \
+                     png/pngtest.c    \
+                     png/pngtrans.c    \
+                     png/pngwio.c    \
+                     png/pngwrite.c    \
+                     png/pngwtran.c    \
+                    png/pngwutil.c
 
 
 
@@ -61,6 +61,7 @@ LOCAL_LDLIBS    := -llog
 
 LOCAL_CPPFLAGS  += -std=c99
 LOCAL_CPPFLAGS += -std=c++11
+
 
 
 include $(BUILD_SHARED_LIBRARY)
