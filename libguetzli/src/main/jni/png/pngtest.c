@@ -1694,7 +1694,7 @@ static PNG_CONST char *outname = "pngout/png";
 static PNG_CONST char *inname = "pngtest.png";
 static PNG_CONST char *outname = "pngout.png";
 #endif
-
+/*
 int
 main(int argc, char *argv[])
 {
@@ -1704,24 +1704,20 @@ main(int argc, char *argv[])
    fprintf(STDERR, "\n Testing libpng version %s\n", PNG_LIBPNG_VER_STRING);
    fprintf(STDERR, "   with zlib   version %s\n", ZLIB_VERSION);
    fprintf(STDERR, "%s", png_get_copyright(NULL));
-   /* Show the version of libpng used in building the library */
+
    fprintf(STDERR, " library (%lu):%s",
       (unsigned long)png_access_version_number(),
       png_get_header_version(NULL));
 
-   /* Show the version of libpng used in building the application */
+
    fprintf(STDERR, " pngtest (%lu):%s", (unsigned long)PNG_LIBPNG_VER,
       PNG_HEADER_VERSION_STRING);
 
-   /* Do some consistency checking on the memory allocation settings, I'm
-    * not sure this matters, but it is nice to know, the first of these
-    * tests should be impossible because of the way the macros are set
-    * in pngconf.h
-    */
+
 #if defined(MAXSEG_64K) && !defined(PNG_MAX_MALLOC_64K)
       fprintf(STDERR, " NOTE: Zlib compiled for max 64k, libpng not\n");
 #endif
-   /* I think the following can happen. */
+   //I think the following can happen.
 #if !defined(MAXSEG_64K) && defined(PNG_MAX_MALLOC_64K)
       fprintf(STDERR, " NOTE: libpng compiled for max 64k, zlib not\n");
 #endif
@@ -1835,7 +1831,7 @@ main(int argc, char *argv[])
             fprintf(STDERR, " tIME = %s\n", tIME_string);
 
          tIME_chunk_present = 0;
-#endif /* TIME_RFC1123 */
+#endif // TIME_RFC1123
          }
 
          else
@@ -1924,7 +1920,7 @@ main(int argc, char *argv[])
 #ifdef PNG_TIME_RFC1123_SUPPORTED
              if (tIME_chunk_present != 0)
                 fprintf(STDERR, " tIME = %s\n", tIME_string);
-#endif /* TIME_RFC1123 */
+#endif
             }
          }
 
@@ -1996,15 +1992,18 @@ main(int argc, char *argv[])
 
    return (int)(ierror != 0);
 }
+*/
 #else
+/*
 int
 main(void)
 {
    fprintf(STDERR,
       " test ignored because libpng was not built with read support\n");
-   /* And skip this test */
+   / And skip this test
    return PNG_LIBPNG_VER < 10600 ? 0 : 77;
 }
+*/
 #endif
 
 /* Generate a compiler error if there is an old png.h in the search path. */

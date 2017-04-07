@@ -1,5 +1,14 @@
 LOCAL_PATH := $(call my-dir)
 
+#链接静态库 jpeg
+include $(CLEAR_VARS)
+LOCAL_MODULE := jpeg
+LOCAL_SRC_FILES := jpeg//libjpeg.a
+include $(PREBUILT_STATIC_LIBRARY)
+
+LOCAL_STATIC_LIBRARIES += jpeg
+
+
 include $(CLEAR_VARS)
 
 LOCAL_MODULE    := libguetzli
@@ -20,6 +29,9 @@ LOCAL_SRC_FILES := guetzli.cc           \
                    fdct.cc                    jpeg_data_writer.cc   score.cc \
                    fdct.h                    jpeg_data_writer.h   score.h \
                    gamma_correct.cc           jpeg_error.h          stats.h \
+                   butteraugli/butteraugli.cc   \
+                   butteraugli/butteraugli.h    \
+                   butteraugli/butteraugli_main.cc  \
                      png/config.h    \
                      png/png.c    \
                      png/pngconf.h    \
@@ -49,14 +61,16 @@ LOCAL_SRC_FILES := guetzli.cc           \
 
 
 
-# LOCAL_SHARED_LIBRARIES += -lz
 
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/png
+
+# -lz
+LOCAL_SHARED_LIBRARIES +=  -lpng -ljpeg
+
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/png  jpeg/include
 # LOCAL_STATIC_LIBRARIES := libpng
 
 
-
-LOCAL_LDLIBS    := -llog
+LOCAL_LDLIBS    := -llog -lz
 
 
 LOCAL_CPPFLAGS  += -std=c99

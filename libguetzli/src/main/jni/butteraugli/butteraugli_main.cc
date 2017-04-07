@@ -438,4 +438,4 @@ int Run(int argc, char* argv[]) {
 }  // namespace
 }  // namespace butteraugli
 
-int main(int argc, char** argv) { return butteraugli::Run(argc, argv); }
+// int main(int argc, char** argv) { return butteraugli::Run(argc, argv); }
