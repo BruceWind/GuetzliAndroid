@@ -184,32 +184,32 @@ void Usage() {
 
 }  // namespace
 
-int main(int argc, char** argv) {
+int compressImg(const char *input,const char *outputs) {
   std::set_terminate(TerminateHandler);
 
   int verbose = 0;
-  int quality = 95;
+  int quality = 80;
 
   int opt_idx = 1;
-  for(;opt_idx < argc;opt_idx++) {
-    if (argv[opt_idx][0] != '-')
-      break;
-    if (!strcmp(argv[opt_idx], "--verbose")) {
-      verbose = 1;
-    } else if (!strcmp(argv[opt_idx], "--quality")) {
-      opt_idx++;
-      quality = atoi(argv[opt_idx]);
-    } else {
-      fprintf(stderr, "Unknown commandline flag: %s\n", argv[opt_idx]);
-      Usage();
-    }
-  }
+//  for(;opt_idx < argc;opt_idx++) {
+//    if (argv[opt_idx][0] != '-')
+//      break;
+//    if (!strcmp(argv[opt_idx], "--verbose")) {
+//      verbose = 1;
+//    } else if (!strcmp(argv[opt_idx], "--quality")) {
+//      opt_idx++;
+//      quality = atoi(argv[opt_idx]);
+//    } else {
+//      fprintf(stderr, "Unknown commandline flag: %s\n", argv[opt_idx]);
+//      Usage();
+//    }
+//  }
+//
+//  if (argc - opt_idx != 2) {
+//    Usage();
+//  }
 
-  if (argc - opt_idx != 2) {
-    Usage();
-  }
-
-  FILE* fin = fopen(argv[opt_idx], "rb");
+  FILE* fin = fopen(input, "rb");
   if (!fin) {
     fprintf(stderr, "Can't open input file\n");
     return 1;
@@ -252,7 +252,7 @@ int main(int argc, char** argv) {
 
   fclose(fin);
 
-  FILE* fout = fopen(argv[opt_idx + 1], "wb");
+  FILE* fout = fopen(outputs, "wb");
   if (!fout) {
     fprintf(stderr, "Can't open output file for writing\n");
     return 1;
