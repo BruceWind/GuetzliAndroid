@@ -30,8 +30,7 @@ JNIEXPORT jint JNICALL comps(JNIEnv *env, jobject instance, jstring j_input, jst
 
     env->ReleaseStringUTFChars(j_input,0);//env,
 
-    compressImg(in,out);
-    return 1;
+    return compressImg(in,out);;
 }
 
 
@@ -52,7 +51,7 @@ JNIEXPORT jint JNICALL comps(JNIEnv *env, jobject instance, jstring j_input, jst
 
 // Java和JNI函数的绑定表
 static JNINativeMethod method_table[] = {
-        { "compress", "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;", (void*)comps },
+        { "compress", "(Ljava/lang/String;Ljava/lang/String;)I", (void*)comps },
 };
 
 // 注册native方法到java中

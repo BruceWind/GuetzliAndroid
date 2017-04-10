@@ -70,6 +70,8 @@ LOCAL_SHARED_LIBRARIES +=  -lpng -ljpeg
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/png  jpeg/include
 # LOCAL_STATIC_LIBRARIES := libpng
 
+# 关闭优化
+LOCAL_PROGUARD_ENABLED:= disabled
 
 LOCAL_LDLIBS    := -llog -lz
 
