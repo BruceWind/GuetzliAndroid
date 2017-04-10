@@ -3,7 +3,7 @@ LOCAL_PATH := $(call my-dir)
 #链接静态库 jpeg
 include $(CLEAR_VARS)
 LOCAL_MODULE := jpeg
-LOCAL_SRC_FILES := jpeg//libjpeg.a
+LOCAL_SRC_FILES := jpeg/libjpeg.a
 include $(PREBUILT_STATIC_LIBRARY)
 
 LOCAL_STATIC_LIBRARIES += jpeg
@@ -12,7 +12,8 @@ LOCAL_STATIC_LIBRARIES += jpeg
 include $(CLEAR_VARS)
 
 LOCAL_MODULE    := libguetzli
-LOCAL_SRC_FILES := guetzli.cc           \
+LOCAL_SRC_FILES := JNIEntry.cc  \
+                    guetzli.cc           \
                    gamma_correct.h       jpeg_huffman_decode.cc\
                    jpeg_huffman_decode.h \
                    butteraugli_comparator.cc \ idct.cc    \           order.inc \
