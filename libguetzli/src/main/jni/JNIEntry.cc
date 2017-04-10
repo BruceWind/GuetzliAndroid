@@ -3,6 +3,8 @@
 #include <android/log.h>
 #include "guetzli.cc"
 
+#define LOG_TAG "JNILOG:" // 这个是自定义的LOG的标识
+
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
 
@@ -26,9 +28,14 @@ JNIEXPORT jint JNICALL comps(JNIEnv *env, jobject instance, jstring j_input, jst
     const char *in = env->GetStringUTFChars( j_input, 0);
     const char *out = env->GetStringUTFChars(j_output, 0);
 
-    env->ReleaseStringUTFChars(j_output,0);//env,
+    int i = 0;
+    LOGD("{%s}", in);
 
-    env->ReleaseStringUTFChars(j_input,0);//env,
+    LOGD("{%s}", out);
+
+    //env->ReleaseStringUTFChars(j_output,0);//env,
+
+    //env->ReleaseStringUTFChars(j_input,0);//env,
 
     return compressImg(in,out);;
 }

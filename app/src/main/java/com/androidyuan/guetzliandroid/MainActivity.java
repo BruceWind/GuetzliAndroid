@@ -69,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
                         return null;
                     }
                     else {
-                        CompressJNI.compress(path,path+"1.jpg");
-                        return path+"1.jpg";
+                        int i=CompressJNI.compress(path,"/storage/emulated/0/Pictures/Screenshots/Screenshot_test.png");
+                        return i+" --> /storage/emulated/0/Pictures/Screenshots/Screenshot_test.png";
                     }
                 }
 
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                     super.onPostExecute(s);
 
 
-                    toast("保存在："+s);
+                    toast("保存在：i="+s);
                 }
             }.execute(picturePath);
 
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void toast(String s) {
         Toast.makeText(this,s,Toast.LENGTH_SHORT).show();
-        Log.d("SAVE:",s);
+        Log.d("",s);
     }
 
 
