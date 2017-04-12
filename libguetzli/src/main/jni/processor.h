@@ -23,6 +23,7 @@
 #include "comparator.h"
 #include "jpeg_data.h"
 #include "stats.h"
+//#include  "logger.c"
 
 namespace guetzli {
 

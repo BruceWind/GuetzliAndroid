@@ -18,6 +18,7 @@
 #define GUETZLI_DEBUG_PRINT_H_
 
 #include "stats.h"
+#include "logger.c"
 
 namespace guetzli {
 

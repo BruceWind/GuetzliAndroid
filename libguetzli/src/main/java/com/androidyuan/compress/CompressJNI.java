@@ -12,6 +12,12 @@ public class CompressJNI {
     }
 
 
+    /**
+     *
+     * @param in input img;
+     * @param out out img;
+     * @return 0:suc ,1:fail
+     */
     native public static int compress(String in,String out);
 
 
