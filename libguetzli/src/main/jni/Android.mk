@@ -12,7 +12,7 @@ LOCAL_STATIC_LIBRARIES += jpeg
 include $(CLEAR_VARS)
 
 LOCAL_MODULE    := libguetzli
-LOCAL_SRC_FILES := JNIEntryyy.cc  \
+LOCAL_SRC_FILES := JNIEntry.cc  \
                     guetzli.cc           \
                    gamma_correct.h       jpeg_huffman_decode.cc\
                    jpeg_huffman_decode.h \
@@ -70,6 +70,8 @@ LOCAL_SHARED_LIBRARIES +=  -lpng -ljpeg
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/png  jpeg/include
 # LOCAL_STATIC_LIBRARIES := libpng
 
+# 关闭优化
+LOCAL_PROGUARD_ENABLED:= disabled
 
 LOCAL_LDLIBS    := -llog -lz
 

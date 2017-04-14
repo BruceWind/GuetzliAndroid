@@ -24,8 +24,16 @@
 #include "processor.h"
 #include "quality.h"
 #include "stats.h"
+#include  "jpeg_data_reader.h"
 //#include "png/pngread.c"
+#include "logger.c"
+
 namespace {
+
+constexpr int kBytesPerPixel = 300;
+constexpr int kLowestMemusageMB = 100; // in MB
+
+constexpr int kDefaultMemlimitMB = 6000; // in MB
 
 inline uint8_t BlendOnBlack(const uint8_t val, const uint8_t alpha) {
   return (static_cast<int>(val) * static_cast<int>(alpha) + 128) / 255;
@@ -182,82 +190,119 @@ void Usage() {
   exit(1);
 }
 
-}  // namespace
 
-int compressImg(const char *input,const char *outputs) {
+int compressImg(const char *input,const char *output) {
   std::set_terminate(TerminateHandler);
 
-  int verbose = 0;
-  int quality = 80;
+    int verbose = 0;
+    int quality = 95;
+    int memlimit_mb = kDefaultMemlimitMB;
 
-  int opt_idx = 1;
-//  for(;opt_idx < argc;opt_idx++) {
-//    if (argv[opt_idx][0] != '-')
-//      break;
-//    if (!strcmp(argv[opt_idx], "--verbose")) {
-//      verbose = 1;
-//    } else if (!strcmp(argv[opt_idx], "--quality")) {
-//      opt_idx++;
-//      quality = atoi(argv[opt_idx]);
-//    } else {
-//      fprintf(stderr, "Unknown commandline flag: %s\n", argv[opt_idx]);
-//      Usage();
-//    }
-//  }
-//
-//  if (argc - opt_idx != 2) {
-//    Usage();
-//  }
+    int opt_idx = 1;
+    /*
+    for(;opt_idx < argc;opt_idx++) {
+      if (argv[opt_idx][0] != '-')
+        break;
+      if (!strcmp(argv[opt_idx], "--verbose")) {
+        verbose = 1;
+      } else if (!strcmp(argv[opt_idx], "--quality")) {
+        opt_idx++;
+        quality = atoi(argv[opt_idx]);
+      } else if (!strcmp(argv[opt_idx], "--memlimit")) {
+        opt_idx++;
+        memlimit_mb = atoi(argv[opt_idx]);
+      } else if (!strcmp(argv[opt_idx], "--nomemlimit")) {
+        memlimit_mb = -1;
+      } else {
+        fprintf(stderr, "Unknown commandline flag: %s\n", argv[opt_idx]);
+        Usage();
+      }
+    }
 
-  FILE* fin = fopen(input, "rb");
-  if (!fin) {
-    fprintf(stderr, "Can't open input file\n");
-    return 1;
-  }
+    if (argc - opt_idx != 2) {
+      Usage();
+    }
+    */
 
-  std::string in_data = ReadFileOrDie(fin);
-  std::string out_data;
-
-  guetzli::Params params;
-  params.butteraugli_target =
-      guetzli::ButteraugliScoreForQuality(quality);
-
-  guetzli::ProcessStats stats;
-
-  if (verbose) {
-    stats.debug_output_file = stdout;
-  }
-
-  static const unsigned char kPNGMagicBytes[] = {
-      0x89, 'P', 'N', 'G', '\r', '\n', 0x1a, '\n',
-  };
-  if (in_data.size() >= 8 &&
-      memcmp(in_data.data(), kPNGMagicBytes, sizeof(kPNGMagicBytes)) == 0) {
-    int xsize, ysize;
-    std::vector<uint8_t> rgb;
-    if (!ReadPNG(fin, &xsize, &ysize, &rgb)) {
-      fprintf(stderr, "Error reading PNG data from input file\n");
+    FILE* fin = fopen(input, "rb");
+    if (!fin) {
+      fprintf(stderr, "Can't open input file\n");
+      printE("Can't open input file");
       return 1;
     }
-    if (!guetzli::Process(params, &stats, rgb, xsize, ysize, &out_data)) {
-      fprintf(stderr, "Guetzli processing failed\n");
+
+    std::string in_data = ReadFileOrDie(fin);
+    std::string out_data;
+
+    guetzli::Params params;
+    params.butteraugli_target =
+        guetzli::ButteraugliScoreForQuality(quality);
+
+    guetzli::ProcessStats stats;
+
+    if (verbose) {
+      stats.debug_output_file = stdout;
+    }
+
+    static const unsigned char kPNGMagicBytes[] = {
+        0x89, 'P', 'N', 'G', '\r', '\n', 0x1a, '\n',
+    };
+    if (in_data.size() >= 8 &&
+        memcmp(in_data.data(), kPNGMagicBytes, sizeof(kPNGMagicBytes)) == 0) {//png begin
+      int xsize, ysize;
+      std::vector<uint8_t> rgb;
+      if (!ReadPNG(fin, &xsize, &ysize, &rgb)) {
+        fprintf(stderr, "Error reading PNG data from input file\n");
+        printE("Error reading PNG data from input file");
+        return 1;
+      }
+      int pixels = xsize * ysize;
+      if (memlimit_mb != -1
+          && (pixels * kBytesPerPixel / (1 << 20) > memlimit_mb
+              || memlimit_mb < kLowestMemusageMB)) {
+        fprintf(stderr, "Memory limit would be exceeded. Failing.\n");
+        printE("Memory limit would be exceeded. Failing.");
+        return 1;
+      }
+      if (!guetzli::Process(params, &stats, rgb, xsize, ysize, &out_data)) {
+        fprintf(stderr, "Guetzli processing failed1\n");
+        printE("Guetzli processing failed1.");
+        return 1;
+      }
+    } else {//jpeg begin
+      guetzli::JPEGData jpg_header;
+      if (!ReadJpeg(in_data, guetzli::JPEG_READ_HEADER, &jpg_header)) {
+        fprintf(stderr, "Error reading JPG data from input file\n");
+        printE("Error reading JPG data from input file.");
+        return 1;
+      }
+      int pixels = jpg_header.width * jpg_header.height;
+      if (memlimit_mb != -1
+          && (pixels * kBytesPerPixel / (1 << 20) > memlimit_mb
+              || memlimit_mb < kLowestMemusageMB)) {
+        fprintf(stderr, "Memory limit would be exceeded. Failing.\n");
+        printE("Memory limit would be exceeded. Failing.");
+        return 1;
+      }
+      if (!guetzli::Process(params, &stats, in_data, &out_data)) {
+        fprintf(stderr, "Guetzli processing failed2\n");
+        printE("Guetzli processing failed2.");
+        return 1;
+      }
+    }
+
+    fclose(fin);
+
+    FILE* fout = fopen(output, "wb");
+    if (!fout) {
+      fprintf(stderr, "Can't open output file for writing\n");
+      printE("Can't open output file for writing.");
       return 1;
     }
-  } else {
-    if (!guetzli::Process(params, &stats, in_data, &out_data)) {
-      fprintf(stderr, "Guetzli processing failed\n");
-      return 1;
-    }
+
+    WriteFileOrDie(fout, out_data);
+    return 0;
   }
 
-  fclose(fin);
+}  // namespace
 
-  FILE* fout = fopen(outputs, "wb");
-  if (!fout) {
-    fprintf(stderr, "Can't open output file for writing\n");
-    return 1;
-  }
-
-  WriteFileOrDie(fout, out_data);
-  return 0;
-}

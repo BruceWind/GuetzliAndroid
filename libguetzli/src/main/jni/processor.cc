@@ -868,6 +868,7 @@ bool Process(const Params& params, ProcessStats* stats,
   JPEGData jpg;
   if (!EncodeRGBToJpeg(rgb, w, h, &jpg)) {
     fprintf(stderr, "Could not create jpg data from rgb pixels\n");
+    printE("Could not create jpg data from rgb pixels.");
     return false;
   }
   GuetzliOutput out;
@@ -883,6 +884,7 @@ bool Process(const Params& params, ProcessStats* stats,
   }
   bool ok = ProcessJpegData(params, jpg, comparator.get(), &out, stats);
   *jpg_out = out.jpeg_data;
+  printD("ProcessJpegData.");
   return ok;
 }
 

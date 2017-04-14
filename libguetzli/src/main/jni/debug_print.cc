@@ -24,6 +24,7 @@ void PrintDebug(ProcessStats* stats, std::string s) {
   }
   if (stats->debug_output_file) {
     fprintf(stats->debug_output_file, "%s", s.c_str());
+    printD(s.c_str());
   }
 }
 
