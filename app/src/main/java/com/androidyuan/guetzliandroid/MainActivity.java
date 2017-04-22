@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
                         int i=CompressJNI.compress(path,getNewFilePath(path));
                         if(i!=0) {
                             Log.e("compress", "failure:" + i);
+                            return "compress error.";
                         }
                         return i+" --> "+getNewFilePath(path);
                     }
@@ -97,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
     {
         localPt = localPt.replace(".JPG","xx.JPG");
         localPt = localPt.replace(".jpg","xx.jpg");
+        localPt = localPt.replace(".bmp","xx.bmp");
         return localPt.replace(".png","xx.png");
 
     }

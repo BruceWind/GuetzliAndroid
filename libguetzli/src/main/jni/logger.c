@@ -19,15 +19,39 @@ void printD(const char *str)
 }
 
 
+void printD(char *str,const char *str2)
+{
+    LOGD("%s", strcat(str,str2));
+}
+
+void printD(char *str,const char *str2,const char *str3)
+{
+    str=strcat(str,str2);
+    str=strcat(str,str3);
+    LOGD("%s", str);
+}
+
+
 void printI(const char *str)
 {
     LOGI("%s", str);
 }
 
 
+void printI(char *str,const char *str2)
+{
+    LOGI("%s", strcat(str,str2));
+}
+
 void printE(const char *str)
 {
     LOGE("%s", str);
+}
+
+
+void printE(char *str,const char *str2)
+{
+    LOGE("%s", strcat(str,str2));
 }
 
 }

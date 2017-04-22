@@ -731,6 +731,7 @@ png_default_error,(png_const_structrp png_ptr, png_const_charp error_message),
          error_number[offset - 1] = '\0';
          fprintf(stderr, "libpng error no. %s: %s",
              error_number, error_message + offset + 1);
+
          fprintf(stderr, PNG_STRING_NEWLINE);
       }
 
@@ -802,6 +803,7 @@ png_default_warning(png_const_structrp png_ptr, png_const_charp warning_message)
          warning_number[offset + 1] = '\0';
          fprintf(stderr, "libpng warning no. %s: %s",
              warning_number, warning_message + offset);
+
          fprintf(stderr, PNG_STRING_NEWLINE);
       }
 

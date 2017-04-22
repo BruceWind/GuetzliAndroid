@@ -747,10 +747,15 @@ bool Processor::ProcessJpegData(const Params& params, const JPEGData& jpg_in,
             "Guetzli should be called with quality >= 84, otherwise the\n"
             "output will have noticeable artifacts. If you want to\n"
             "proceed anyway, please edit the source code.\n");
+
+    printE("Guetzli should be called with quality >= 84, otherwise the\n"
+                       "output will have noticeable artifacts. If you want to\n"
+                       "proceed anyway, please edit the source code.\n");
     return false;
   }
   if (jpg_in.components.size() != 3 || !HasYCbCrColorSpace(jpg_in)) {
     fprintf(stderr, "Only YUV color space input jpeg is supported\n");
+    printE("Only YUV color space input jpeg is supported");
     return false;
   }
   bool input_is_420;
@@ -760,6 +765,7 @@ bool Processor::ProcessJpegData(const Params& params, const JPEGData& jpg_in,
     input_is_420 = true;
   } else {
     fprintf(stderr, "Unsupported sampling factors:");
+    printE("Unsupported sampling factors:");
     for (int i = 0; i < jpg_in.components.size(); ++i) {
       fprintf(stderr, " %dx%d", jpg_in.components[i].h_samp_factor,
               jpg_in.components[i].v_samp_factor);
@@ -837,6 +843,7 @@ bool Process(const Params& params, ProcessStats* stats,
   JPEGData jpg;
   if (!ReadJpeg(data, JPEG_READ_ALL, &jpg)) {
     fprintf(stderr, "Can't read jpg data from input file\n");
+    printE("Can't read jpg data from input file\n");
     return false;
   }
   std::vector<uint8_t> rgb = DecodeJpegToRGB(jpg);
@@ -844,6 +851,11 @@ bool Process(const Params& params, ProcessStats* stats,
     fprintf(stderr, "Unsupported input JPEG file (e.g. unsupported "
             "downsampling mode).\nPlease provide the input image as "
             "a PNG file.\n");
+
+    printE("Unsupported input JPEG file (e.g. unsupported "
+                       "downsampling mode).\nPlease provide the input image as "
+                       "a PNG file.\n");
+
     return false;
   }
   GuetzliOutput out;

@@ -21,6 +21,7 @@ namespace guetzli {
 void PrintDebug(ProcessStats* stats, std::string s) {
   if (stats->debug_output) {
     stats->debug_output->append(s);
+    printD(s.c_str());
   }
   if (stats->debug_output_file) {
     fprintf(stats->debug_output_file, "%s", s.c_str());
