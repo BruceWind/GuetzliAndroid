@@ -3,11 +3,25 @@ package com.androidyuan.compress;
 /**
  * Copyright (c) 2016. BiliBili Inc.
  * Created by wei on 17-4-10 ,email:602807247@qq.com
+ *
+ * =======guetzli client=============
  */
 
-public class CompressJNI {
+public class GuetzliClient {
 
-    static {
+    static GuetzliClient sGuetzliInstance;
+
+    //生成者模式
+    public static GuetzliClient build()
+    {
+        if(sGuetzliInstance==null)
+        {
+            sGuetzliInstance=new GuetzliClient();
+        }
+        return sGuetzliInstance;
+    }
+
+    public GuetzliClient(){
         System.loadLibrary("guetzli");
     }
 
@@ -18,7 +32,7 @@ public class CompressJNI {
      * @param out
      * @return
      */
-    public static boolean compressIMG(String in,String out){
+    public boolean compressIMG(String in,String out){
         return compress(in,out)==0;
     }
 

@@ -2,7 +2,6 @@ package com.androidyuan.guetzliandroid;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
@@ -14,7 +13,7 @@ import android.widget.Button;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.androidyuan.compress.CompressJNI;
+import com.androidyuan.compress.GuetzliClient;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
                         return null;
                     }
                     else {
-                        if(!CompressJNI.compressIMG(path,getNewFilePath(path))) {
-                            Log.e("compress", "failure:" + i);
+                        if(!GuetzliClient.build().compressIMG(path,getNewFilePath(path))) {
+                            Log.e("compress", "failure");
                             return "compress error.";
                         }
                         return " --> "+getNewFilePath(path);

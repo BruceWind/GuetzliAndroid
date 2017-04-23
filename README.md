@@ -19,7 +19,6 @@
 
 而且，可以做无损压缩，超高的压缩比，超轻的文件大小，简直碉堡。
 
-[https://github.com/google/guetzli/releases](https://github.com/google/guetzli/releases)
 
 目前这个库存在的问题：
 
@@ -31,3 +30,6 @@
 
 ## 期待
 谷歌既然发布了1.0版本，后面肯定会修复杂七杂八的问题，我们期待，未来，这个库可以很好的性能，和很低的出错率，那么就会很好的移植到android平台上了。
+
+
+[https://github.com/google/guetzli/releases](https://github.com/google/guetzli/releases)
