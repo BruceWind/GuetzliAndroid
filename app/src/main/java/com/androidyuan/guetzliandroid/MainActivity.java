@@ -69,12 +69,11 @@ public class MainActivity extends AppCompatActivity {
                         return null;
                     }
                     else {
-                        int i=CompressJNI.compress(path,getNewFilePath(path));
-                        if(i!=0) {
+                        if(!CompressJNI.compressIMG(path,getNewFilePath(path))) {
                             Log.e("compress", "failure:" + i);
                             return "compress error.";
                         }
-                        return i+" --> "+getNewFilePath(path);
+                        return " --> "+getNewFilePath(path);
                     }
                 }
 
