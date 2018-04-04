@@ -27,12 +27,12 @@
 3.压缩耗时太长了，这个问题，我经过测试，我拿官方代码不做修改，直接在树莓派这个arm64机器上编译运行测试，结果一样的，耗时也很久，大图一般都要3分钟以上。
 
 
-综上，目前我的这个代码存在的一些问题，不是我改出来的，官方代码同样存在的。
-所以，如果您遇到类似问题不要急着提issues，先跑一下官方的版本。
+综上，目前跑我这个代码遇到的一些问题，不是我改出来的，官方代码同样存在的。
+所以，如果您遇到类似问题不要急着提issues，先build一下官方的版本。
 
 
 ## 期待
-谷歌既然发布了1.0版本，后面肯定会修复杂七杂八的问题，我们期待，未来，这个库可以很好的性能，和很低的出错率，那么就会很好的移植到android平台上了。
+谷歌既然发布了1.0版本，后面肯定会修复杂七杂八的问题，我们期待，未来，这个库可以很低的出错率，那么就会很好的移植到移动平台。
 
 
 [https://github.com/google/guetzli/releases](https://github.com/google/guetzli/releases)
@@ -42,4 +42,4 @@
 ## 性能和内存问题的折中方案
 
 Guetzli的设计是不考虑CPU性能,尽可能得保证图片的高压和高质，所以：它更适合放在一个服务器上。
-如果你非要放到移动端：推荐我的另外一个仓库：[OperatingImageBypassDalvik](https://github.com/weizongwei5/OperatingImageBypassDalvik)
+如果你非要放到移动端：推荐我的另外一个仓库：[OperatingImageBypassDalvik](https://github.com/weizongwei5/OperatingImageBypassDalvik)，这个库会同时顾及OOM问题和CPU耗时问题。
