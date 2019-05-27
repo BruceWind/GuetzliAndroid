@@ -1,45 +1,45 @@
 # GuetzliAndroid
+-----------------------------------------
 
 
- - [x] 已经导入 libpng libjpeg 依赖并编译通过。
- - [x] 测试压缩png可用。
- - [x] 把一些无法压缩的原因，在日志中显示出来。
- - [x] libgpng代码修改使ndk可以编译出arm64-v8a的包。
+ - [x] has imported libpng libjpeg dependencies and compiled.
+ - [x] Test compression png is available.
+ - [x] Display some uncompressible causes in the log.
+ - [x] libgpng code modification allows ndk to compile arm64-v8a packages.
 
 
-如你所见，Guetzli目前处于第一版发布，性能并不好。
+As you can see, Guetzli is currently in the first release and the performance is poor.
 
-但是未来的趋势他必然成为一个跨平台的最好的图片压缩工具。
+But in the future it will definitely be the best image compression tool.
+The git repository, memory consumption is in native memory, not in the JVM stack, so don't worry about OOM, the memory is smaller than the Android official compression algorithm.
 
-他的内存消耗都在native内存区，不再JVM堆栈中，所以不用担心OOM，跟android平台使用官方纯JAVA代码的话，一个像素就2-4个字节的高内存压缩方案比起来是高端很多。
+This library is of great significance in cases where only 64M of memory can be applied to some devices.
 
-对于android平台有些机器app只能申请64M内存的情况下，这个库还是显得尤为重要。
-
-而且，可以做无损压缩，超高的压缩比，超轻的文件大小，简直碉堡。
-
-
-目前我修改的这个库存在的问题：
-
-1.不能压缩BMP，BMP格式比较特殊，请查阅BMP这个格式的文档，这个格式肯定不可被压缩。以后也不会被压缩。
-
-2.部分图片因为色彩，或者不遵守规范等等其他原因，无法压缩，经过测试在官方发布的打包好的x64的版本也无法被压缩。
-
-3.压缩耗时太长了，这个问题，我经过测试，我拿官方代码不做修改，直接在树莓派这个arm64机器上编译运行测试，结果一样的，耗时也很久，大图一般都要3分钟以上。
+It can do lossless compression,and ultra-high compression ratio,and ultra-light file size.
 
 
-综上，目前跑我这个代码遇到的一些问题，不是我改出来的，官方代码同样存在的。
-所以，如果您遇到类似问题不要急着提issues，先build一下官方的版本。
+the library has issues:
+
+1. Can not compress BMP, BMP format is special, please refer to the BMP format document, this format must not be compressed. It will not be compressed in the future.
+
+2. Some images cannot be compressed due to color, or non-compliance with specifications, etc., and the officially released packaged x64 version cannot be compressed.
+
+3. Compression takes too long, this problem, I have been tested, I took the official code without modification, directly compile and run the test on the raspberry pie arm64 machine, the result is the same, it takes a long time, the big picture is generally It takes more than 3 minutes.
 
 
-## 期待
-谷歌既然发布了1.0版本，后面肯定会修复杂七杂八的问题，我们期待，未来，这个库可以很低的出错率，那么就会很好的移植到移动平台。
+In summary, some of the problems I encountered in running this code are not changed by me. The official code also exists.
+So, if you encounter similar problems, don't rush to mention issues, first build the official version.
+
+
+## Future
+Since Google released the 1.0 version, it will definitely solve the complicated problems. We hope that in the future, this library can have a low error rate, so it will be well transplanted to the mobile platform.
 
 
 [https://github.com/google/guetzli/releases](https://github.com/google/guetzli/releases)
 
 
 
-## 性能和内存问题的折中方案
+## A compromise between performance and memory issues
 
-Guetzli的设计是不考虑CPU性能,尽可能得保证图片的高压和高质，所以：它更适合放在一个服务器上。
-如果你非要放到移动端：推荐我的另外一个仓库：[OperatingImageBypassDalvik](https://github.com/weizongwei5/OperatingImageBypassDalvik)，这个库会同时顾及OOM问题和CPU耗时问题。
+Guetzli's design does not consider CPU performance, as much as possible to ensure the high pressure and high quality of the picture, so: it is more suitable for a server.
+If you have to put it on the mobile side: I recommend another repository: [OperatingImageBypassDalvik](https://github.com/weizongwei5/OperatingImageBypassDalvik), this library will take into account both OOM issues and CPU time-consuming issues.
