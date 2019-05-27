@@ -1,5 +1,8 @@
+[中文](https://github.com/BruceWind/GuetzliAndroid/blob/master/README_zh.md)
+
 # GuetzliAndroid
 -----------------------------------------
+As you can see, Guetzli is currently in the first release and the performance is poor.
 
 
  - [x] has imported libpng libjpeg dependencies and compiled.
@@ -8,7 +11,6 @@
  - [x] libgpng code modification allows ndk to compile arm64-v8a packages.
 
 
-As you can see, Guetzli is currently in the first release and the performance is poor.
 
 But in the future it will definitely be the best image compression tool.
 The git repository, memory consumption is in native memory, not in the JVM stack, so don't worry about OOM, the memory is smaller than the Android official compression algorithm.
