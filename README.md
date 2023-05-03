@@ -29,8 +29,8 @@ the library has issues:
 3. Compression takes too long, this problem, I have been tested, I took the official code without modification, directly compile and run the test on the raspberry pie arm64 machine, the result is the same, it takes a long time, the big picture is generally It takes more than 3 minutes.
 
 
-In summary, some of the problems I encountered in running this code are not changed by me. The official code also exists.
-So, if you encounter similar problems, don't rush to mention issues, first build the official version.
+In summary, some of the problems that I encountered in running this code are not changed by me. The official code also has those.
+So, if you encounter similar problems, don't rush to summit issues, first build a **new** official version.
 
 
 ## Future
